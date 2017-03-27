@@ -18,6 +18,7 @@ namespace TheWorld
                 .UseStartup<Startup>()
                 .UseApplicationInsights()
                 .Build();
+
             host.Run();
         }
     }
