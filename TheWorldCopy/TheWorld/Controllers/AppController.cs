@@ -30,7 +30,7 @@ namespace TheWorld.Controllers
         // GET: /<controller>/
         public IActionResult Index()
         {
-            var data = _context.Trips.ToList();
+                var data = _context.Trips.ToList();
 
             return View(data);
         }

@@ -3,6 +3,6 @@
     "ToAdress": "test@me.com"
   },
   "ConnectionStrings": {
-    "WorldContextConnection":  "Server=(localdb)\\MSSQLLocalDB;Database=TheWorldDb;Trusted_COnnection=true;"
+    "WorldContextConnection":  "Server=(localdb)\\MSSQLLocalDB;Database=TheWorldDb;Trusted_Connection=true;MultipleActiveResultSets=true;"
   }
 }
