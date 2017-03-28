@@ -3,7 +3,7 @@
 
 // Function as expression: This ensures that the variables are not global, and the code within the
 //paranthesis are executed. 
-(function () {
+//(function () {
 
 
     /* Examples with jQuery */
@@ -45,28 +45,48 @@
 
 
 
-    var $icon = $("#sidebarToggle i.fa");
-    //Displays the sidebar
-    var $sidebarAndWrapper = $("#sidebar, #wrapper");
+//    var $icon = $("#sidebarToggle i.fa");
+//    //Displays the sidebar
+//    var $sidebarAndWrapper = $("#sidebar, #wrapper");
    
+
+//    $("#sidebarToggle").on("click", function () {
+
+//        $sidebarAndWrapper.toggleClass("hide-sidebar");
+//        if ($sidebarAndWrapper.hasClass("hide-sidebar")) {
+       
+//            $icon.removeClass("fa-angle-left");
+//            $icon.addClass("fa-angle-right");
+          
+//        } else {
+          
+//            $icon.addClass("fa-angle-left");
+//            $icon.removeClass("fa-angle-right");
+          
+//        }
+//    });
+
+   
+//})();
+//// () executes the code of the ananomouse function
+ 
+
+
+// site.js
+
+(function () {
+    var $sidebarAndWrapper = $("#sidebar,#wrapper"); // Referencing by element IDs
+    // Find the element i with class 'fa' within the element with class 'sidebarToggle'
+    var $icon = $("#sidebarToggle i.fa");
 
     $("#sidebarToggle").on("click", function () {
-
         $sidebarAndWrapper.toggleClass("hide-sidebar");
         if ($sidebarAndWrapper.hasClass("hide-sidebar")) {
-       
             $icon.removeClass("fa-angle-left");
             $icon.addClass("fa-angle-right");
-          
         } else {
-          
-            $icon.addClass("fa-angle-left");
             $icon.removeClass("fa-angle-right");
-          
+            $icon.addClass("fa-angle-left");
         }
     });
-
-   
 })();
-// () executes the code of the ananomouse function
-  
