@@ -46,14 +46,13 @@ namespace TheWorld.Controllers
                 return View(data);
 
             }
-            catch (Exception ex)
+            catch (Exception )
             {
-                _logger.LogError("$Failed to get  trips in index page: {ex.Message}");
+
+                _logger.LogError("$Failed to get  trips in index page:   ");
                 return Redirect("/error");
             }
-
-           
-         
+       
 
         }
 
