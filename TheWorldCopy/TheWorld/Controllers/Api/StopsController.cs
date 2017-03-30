@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -7,21 +8,26 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TheWorld.Models;
+using TheWorld.Services;
 using TheWorld.ViewModels;
 
 namespace TheWorld.Controllers.Api
 {
 
     [Route("/api/trips/{tripName}/stops")]
+    [Authorize]
     public class StopsController : Controller
     {
         private ILogger<StopsController> _logger;
         private IWorldRepository _repository;
+        private GeoCoordsService _coordService;
 
-        public StopsController(IWorldRepository repository, ILogger<StopsController> logger)
+        public StopsController(IWorldRepository repository, ILogger<StopsController> logger,
+           GeoCoordsService coordService)
         {
             _repository = repository;
             _logger = logger;
+            _coordService = coordService; 
         }
 
 
@@ -30,7 +36,7 @@ namespace TheWorld.Controllers.Api
         {
             try
             {
-                var trip = _repository.GetTripByName(tripName);
+                var trip = _repository.GetUserTripByName(tripName,User.Identity.Name);
 
                 return Ok(Mapper.Map<IEnumerable<StopViewModel>> (trip.Stops.OrderBy(s => s.Order)));
             }
@@ -53,10 +59,25 @@ namespace TheWorld.Controllers.Api
                 {
                     var newStop = Mapper.Map<Stop>(vm);
 
-                    _repository.AddStop(tripName, newStop);
+                    var result = await _coordService.Lookup(newStop.Name);
 
-                    if(await _repository.SaveChangesAsync()){
-                        return Created($"api/trips/{tripName}/stops{newStop.Name}", Mapper.Map<StopViewModel>(newStop));
+                    if (!result.Success)
+                    {
+                        _logger.LogError(result.Message);
+                    }else
+                    {
+
+                        newStop.Latitude = result.Latitude;
+                        newStop.Longitude = result.Longitude;
+                        //save to database
+                        _repository.AddStop(tripName, newStop, User.Identity.Name);
+
+                        if (await _repository.SaveChangesAsync())
+                        {
+                            return Created($"api/trips/{tripName}/stops{newStop.Name}", Mapper.Map<StopViewModel>(newStop));
+
+
+                        }
 
                     }
                 }

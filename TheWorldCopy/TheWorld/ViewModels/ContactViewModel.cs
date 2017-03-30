@@ -9,7 +9,7 @@ namespace TheWorld.ViewModels
 {
     public class ContactViewModel
     {
-
+        
         [Required]
         public string Name { get; set; }
         [Required]

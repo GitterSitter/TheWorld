@@ -3,6 +3,11 @@
     "ToAdress": "test@me.com"
   },
   "ConnectionStrings": {
-    "WorldContextConnection":  "Server=(localdb)\\MSSQLLocalDB;Database=TheWorldDb;Trusted_Connection=true;MultipleActiveResultSets=true;"
+    "WorldContextConnection": "Server=(localdb)\\MSSQLLocalDB;Database=TheWorldDb;Trusted_Connection=true;MultipleActiveResultSets=true;"
+  },
+  "Keys": {
+    "BingKey": "4a78of5cb5TeV1i95Z5L~KJiYKXrzxm642z63madRQQ~AnyhGxVGrdN2CtgZIa-kzRQk5W5r7jYmLHaJwLJqegP1svBhpv55Ew4QSU015Cqa"
   }
+
+
 }

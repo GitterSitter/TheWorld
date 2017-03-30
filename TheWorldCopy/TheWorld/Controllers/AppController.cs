@@ -8,6 +8,7 @@ using TheWorld.Services;
 using Microsoft.Extensions.Configuration;
 using TheWorld.Models;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Authorization;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -35,9 +36,8 @@ namespace TheWorld.Controllers
         //    _context = context;
         }
 
-
-        // GET: /<controller>/
-        public IActionResult Index()
+        [Authorize]
+        public IActionResult Trips()
         {
 
             try
@@ -46,14 +46,21 @@ namespace TheWorld.Controllers
                 return View(data);
 
             }
-            catch (Exception )
+            catch (Exception)
             {
 
                 _logger.LogError("$Failed to get  trips in index page:   ");
                 return Redirect("/error");
             }
-       
 
+            //var trips = _repository.GetAllTrips();
+            //return View(trips);
+
+        }
+        // GET: /<controller>/
+        public IActionResult Index()
+        {
+            return View();
         }
 
         public IActionResult Contact()
@@ -81,6 +88,8 @@ namespace TheWorld.Controllers
             }
             return View();
         }
+
+        
 
         public IActionResult About()
         {
