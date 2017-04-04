@@ -5,13 +5,13 @@ namespace TheWorld.Models
 {
     public interface IWorldRepository
     {
+
         IEnumerable<Trip> GetAllTrips();
-        IEnumerable<Trip> GetTripByUsername(string userName);
-        Trip GetUserTripByName(string tripName, string userName);
-        Trip GetTripByName(string tripName);
-        void AddTrip(Trip trip);
-        void AddStop(string tripName, Stop newStop,string userName);
-        Task<bool> SaveChangesAsync();
-       
+        IEnumerable<Trip> GetAllTripsWithStops();
+        void AddTrip(Trip newTrip);
+        bool SaveAll();
+        Trip GetTripByName(string tripName, string username);
+        void AddStop(string tripName, string username, Stop newStop);
+        IEnumerable<Trip> GetUserTripsWithStops(string name);
     }
 }   

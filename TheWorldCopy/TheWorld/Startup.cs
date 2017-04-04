@@ -60,7 +60,7 @@ namespace TheWorld
                 .AddEntityFrameworkSqlServer()
                 .AddDbContext<WorldContext>();
 
-            services.AddScoped<GeoCoordsService>();
+            services.AddScoped<CoordService>();
             services.AddLogging();
 
             services.AddTransient<WorldContextSeedData>();
@@ -104,7 +104,7 @@ namespace TheWorld
            //Need to add entityframework stuff (sql)
             services.AddDbContext<WorldContext>();
           
-            services.AddTransient<GeoCoordsService>();
+            services.AddTransient<CoordService>();
             services.AddSingleton(_config);
 
 

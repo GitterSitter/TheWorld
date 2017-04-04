@@ -13,12 +13,12 @@ using System.Threading.Tasks;
 //Keys:BingKey
 namespace TheWorld.Services
 {
-    public class GeoCoordsService
+    public class CoordService
     {
-        private ILogger<GeoCoordsService> _logger;
+        private ILogger<CoordService> _logger;
         private IConfigurationRoot _config;
 
-        public GeoCoordsService(ILogger<GeoCoordsService> logger,
+        public CoordService(ILogger<CoordService> logger,
             IConfigurationRoot config)
         {
             _logger = logger;
@@ -39,10 +39,10 @@ namespace TheWorld.Services
 
         //}
 
-        public async Task<GeoCoordsResult> Lookup(string location)
+        public async Task<CoordResult> Lookup(string location)
         {
             // Instantiate CoorServiceResult object with default values
-            var result = new GeoCoordsResult()
+            var result = new CoordResult()
             {
                 Success = false,
                 Message = "Undetermined failure while looking up coordinates"

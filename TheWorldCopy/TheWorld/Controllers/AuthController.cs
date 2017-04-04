@@ -8,9 +8,10 @@ using System.Threading.Tasks;
 using TheWorld.Models;
 using TheWorld.ViewModels;
 
+
 namespace TheWorld.Controllers
 {
-    public class AuthController:Controller
+    public class AuthController : Controller
     {
         private SignInManager<WorldUser> _signInManager;
 
@@ -18,29 +19,32 @@ namespace TheWorld.Controllers
         {
             _signInManager = signInManager;
         }
-      public IActionResult Login()
-        {
 
+        public IActionResult Login()
+        {
             if (User.Identity.IsAuthenticated)
             {
                 return RedirectToAction("Trips", "App");
             }
+
             return View();
-        }  
+        }
 
         [HttpPost]
         public async Task<ActionResult> Login(LoginViewModel vm, string returnUrl)
         {
             if (ModelState.IsValid)
             {
-                var signInResult = await _signInManager.PasswordSignInAsync(vm.Username, vm.Password, true, false);
+                var signInResult = await _signInManager.PasswordSignInAsync(vm.Username,
+                                                                      vm.Password,
+                                                                      true, false);
+
                 if (signInResult.Succeeded)
                 {
 
                     if (string.IsNullOrWhiteSpace(returnUrl))
                     {
                         return RedirectToAction("Trips", "App");
-
                     }
                     else
                     {
@@ -51,12 +55,11 @@ namespace TheWorld.Controllers
                 {
                     ModelState.AddModelError("", "Username or password incorrect");
                 }
-
-
             }
 
             return View();
         }
+
 
         public async Task<ActionResult> Logout()
         {
