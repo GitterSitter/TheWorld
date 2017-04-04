@@ -29,15 +29,11 @@ namespace TheWorld.Controllers
         }  
 
         [HttpPost]
-        public async  Task<ActionResult> Login(LoginViewModel vm,string returnUrl)
+        public async Task<ActionResult> Login(LoginViewModel vm, string returnUrl)
         {
             if (ModelState.IsValid)
             {
-
-
                 var signInResult = await _signInManager.PasswordSignInAsync(vm.Username, vm.Password, true, false);
-
-
                 if (signInResult.Succeeded)
                 {
 

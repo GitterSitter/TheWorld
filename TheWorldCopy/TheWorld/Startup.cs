@@ -16,6 +16,7 @@ using TheWorld.ViewModels;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 
 namespace TheWorld
 {
@@ -27,7 +28,6 @@ namespace TheWorld
         public Startup(IHostingEnvironment env)
         {
             _env = env;
-
             var builder = new ConfigurationBuilder()
                 .SetBasePath(_env.ContentRootPath)
                 .AddJsonFile("config.json").AddEnvironmentVariables();
@@ -35,22 +35,39 @@ namespace TheWorld
             _config = builder.Build();
         }
 
-
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc(config =>
-            {
-                if (_env.IsProduction())
-                {
-                    config.Filters.Add(new RequireHttpsAttribute());
-                }
-               
+            services.AddMvc().AddJsonOptions(config => {
+                config.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+
             });
 
-            services.AddSingleton(_config);
 
+            //services.AddMvc(config =>
+            //{
+            //    if (_env.IsProduction())
+            //    {
+            //        config.Filters.Add(new RequireHttpsAttribute());
+            //    }
+
+            //});
+
+
+
+            services.AddEntityFramework()
+                .AddEntityFrameworkSqlServer()
+                .AddDbContext<WorldContext>();
+
+            services.AddScoped<GeoCoordsService>();
+            services.AddLogging();
+
+            services.AddTransient<WorldContextSeedData>();
+            services.AddScoped<IWorldRepository, WorldRepository>();
+
+          
+        
 
             if (_env.IsDevelopment() || _env.IsEnvironment("Testing"))
             {
@@ -65,7 +82,7 @@ namespace TheWorld
             services.AddIdentity<WorldUser, IdentityRole>(config =>
              {
                  config.User.RequireUniqueEmail = true;
-                 config.Password.RequiredLength = 8;
+                 //config.Password.RequiredLength = 8;
                  config.Cookies.ApplicationCookie.LoginPath = "/auth/login";
                  config.Cookies.ApplicationCookie.Events = new CookieAuthenticationEvents()
                  {
@@ -84,18 +101,13 @@ namespace TheWorld
 
              }).AddEntityFrameworkStores<WorldContext>();
 
-
            //Need to add entityframework stuff (sql)
             services.AddDbContext<WorldContext>();
-            services.AddScoped<IWorldRepository, WorldRepository>();
+          
             services.AddTransient<GeoCoordsService>();
-            services.AddTransient<WorldContextSeedData>();
+            services.AddSingleton(_config);
 
-            services.AddLogging();
-            services.AddMvc().AddJsonOptions(config => {
-                config.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
 
-            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -126,10 +138,6 @@ namespace TheWorld
                 factory.AddDebug(LogLevel.Error);
             }
             
-
-
-         
-
             app.UseMvc(config =>
 
             {
@@ -140,34 +148,8 @@ namespace TheWorld
 
             });
 
-
-          
-
                 seeder.EnsureSeedData().Wait();
           
-
-
         }
     }
 }
-
-
-
-//public void Configure(IApplicationBuilder app)
-//{
-//    app.UseDefaultFiles();
-//    //    app.UseStaticFiles();
-//    app.UseMvc(config =>
-
-//    {
-//        config.MapRoute(
-//        name: "Default",
-//        template: "{controller}/{action}/{id?}",
-//        defaults: new { controller = "App", action = "Index" });
-
-//    });
-
-//}
-
-//    }
-//}

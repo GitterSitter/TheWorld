@@ -9,11 +9,17 @@
     <Content Include="wwwroot\css\site.css" />
     <Content Include="wwwroot\img\user.jpg" />
     <Content Include="wwwroot\Index.html" />
+    <Content Include="wwwroot\js\app-trips.js" />
+    <Content Include="wwwroot\js\simpleControls.js" />
     <Content Include="wwwroot\js\site.js" />
+    <Content Include="wwwroot\views\tripsView" />
+    <Content Include="wwwroot\views\tripsView.html" />
+    <Content Include="wwwroot\views\waitCursor.html" />
   </ItemGroup>
 
   <ItemGroup>
     <None Include="wwwroot\index.html" />
+    <None Include="wwwroot\js\tripsController.js" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="6.0.2" />
@@ -35,9 +41,6 @@
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="1.1.1" />
     <PackageReference Include="Microsoft.VisualStudio.Web.BrowserLink" Version="1.1.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="1.1.0" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Api\Controllers\" />
   </ItemGroup>
 
 </Project>
