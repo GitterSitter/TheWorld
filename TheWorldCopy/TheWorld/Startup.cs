@@ -23,7 +23,7 @@ namespace TheWorld
     public class Startup
     {
         private IHostingEnvironment _env;
-        private IConfigurationRoot _config;
+        public static IConfigurationRoot _config;
 
         public Startup(IHostingEnvironment env)
         {
