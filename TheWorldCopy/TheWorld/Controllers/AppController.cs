@@ -39,22 +39,7 @@ namespace TheWorld.Controllers
         [Authorize]
         public IActionResult Trips()
         {
-
-            try
-            {
-                var data = _repository.GetAllTrips();
-                return View(data);
-
-            }
-            catch (Exception)
-            {
-
-                _logger.LogError("$Failed to get  trips in index page:   ");
-                return Redirect("/error");
-            }
-
-            //var trips = _repository.GetAllTrips();
-            //return View(trips);
+            return View();
 
         }
         // GET: /<controller>/

@@ -12,6 +12,9 @@
     <Content Include="wwwroot\js\app-trips.js" />
     <Content Include="wwwroot\js\simpleControls.js" />
     <Content Include="wwwroot\js\site.js" />
+    <Content Include="wwwroot\js\tripEditorController.js" />
+    <Content Include="wwwroot\js\tripEditorView.html" />
+    <Content Include="wwwroot\views\tripEditorView.html" />
     <Content Include="wwwroot\views\tripsView" />
     <Content Include="wwwroot\views\tripsView.html" />
     <Content Include="wwwroot\views\waitCursor.html" />
